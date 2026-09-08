@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="bg8awGdoplql33WWrrmrop">
+<head data-page-node-id="sTe8AZDXYH0k8QevGgRMOe">
+    <meta charset="UTF-8" data-page-node-id="4YlN39dodpu9fgK2TXYulq">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="twfoQASbTYQLPxLZztvJXx">
+    <title>KeyMouseViz - 键鼠可视化助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* 动画背景 */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-animation .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .bg-animation .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .bg-animation .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+        
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* 头部 */
+        header {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a8b5d6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #8892b0;
+            margin-bottom: 40px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #667eea;
+        }
+        
+        /* 功能卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card:nth-child(1) .feature-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+        .feature-card:nth-child(2) .feature-icon { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .feature-card:nth-child(3) .feature-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .feature-card:nth-child(4) .feature-icon { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .feature-card:nth-child(5) .feature-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .feature-card:nth-child(6) .feature-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .feature-card p {
+            color: #8892b0;
+            line-height: 1.6;
+        }
+        
+        /* 下载区域 */
+        .download-section {
+            text-align: center;
+            padding: 80px 0;
+            margin: 40px 0;
+        }
+        
+        .download-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .download-section p {
+            color: #8892b0;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .file-info {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .file-item {
+            text-align: center;
+        }
+        
+        .file-item .size {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .file-item .name {
+            font-size: 0.9rem;
+            color: #8892b0;
+            margin-top: 5px;
+        }
+        
+        /* 快捷键表格 */
+        .shortcuts {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .shortcuts h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+        
+        .shortcut-key {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+        
+        .shortcut-desc {
+            color: #8892b0;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #8892b0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body data-page-node-id="MSYmzbGnT9MYEmBHXrm97h">
+    <!-- 背景动画 -->
+    <div class="bg-animation" data-page-node-id="FZ3N8cFbEo7gAm5hOprEbr">
+        <div class="circle" data-page-node-id="32us0xlJ9r7ey8drzDLrbg"></div>
+        <div class="circle" data-page-node-id="nDNOLpuMpXuHJYWLEHPuDJ"></div>
+        <div class="circle" data-page-node-id="DNWINVJg7YXw3LfqmiCREm"></div>
+    </div>
+    
+    <div class="container" data-page-node-id="1nJ66uYs08JyILxM3NKciw">
+        <!-- 头部 -->
+        <header data-page-node-id="Ji7cjIffbihSePrIhobbOB">
+            <div class="logo" data-page-node-id="oZh3cR7Q0mD6EFbpRRKAfa">🖱️</div>
+            <h1 data-page-node-id="g48Lqrbe9zN4TCVVpi50EL">KeyMouseViz</h1>
+            <p class="subtitle" data-page-node-id="mmLwmeBMecyZYU8hYPViy6">让每一次点击和按键都清晰可见</p>
+            <span class="badge" data-page-node-id="aGxoCQX0DC5W4SseABkBEa">v1.0.0 | Windows 10/11</span>
+        </header>
+        
+        <!-- 功能特性 -->
+        <section class="features" data-page-node-id="XkJBvLMZYuYo6tFQozUBjz">
+            <div class="feature-card" data-page-node-id="B7h9J8GJu8m89MPpgbVX8t">
+                <div class="feature-icon" data-page-node-id="gzDNTf7lc9uSyb9iGcWFyX">🖱️</div>
+                <h3 data-page-node-id="gDYLWX0V3SkNANbpwfDrbY">鼠标轨迹高亮</h3>
+                <p data-page-node-id="7TLA1Yt6C6FdF6w8YQj58B">实时可视化鼠标移动轨迹，红色醒目高亮，让鼠标动向一目了然</p>
+            </div>
+            
+            <div class="feature-card" data-page-node-id="96g5N0tJLgl7E0wAIDDbMy">
+                <div class="feature-icon" data-page-node-id="nCNG1zSVBBms2aF7iC4VEV">⌨️</div>
+                <h3 data-page-node-id="Dl9n6gIgVBYh05npXgjmz4">按键可视化</h3>
+                <p data-page-node-id="DNww0N5fVU4Ts3AyvVMvMs">按下键盘时显示炫酷的按键动画效果，教学演示必备</p>
+            </div>
+            
+            <div class="feature-card" data-page-node-id="ED2m92Je3YEk1pLLa84Eza">
+                <div class="feature-icon" data-page-node-id="D1EzUEHgp6jd6JHt5ZDnzt">🎯</div>
+                <h3 data-page-node-id="7XF0IaSyHJDjRmlM9vVQ2c">点击效果</h3>
+                <p data-page-node-id="4TJEHaDJUwGb7ywZuKBtb2">点击时产生动态视觉反馈，橙色涟漪效果清晰可见</p>
+            </div>
+            
+            <div class="feature-card" data-page-node-id="pC2VrHjpbTjDAg1QuT0AAB">
+                <div class="feature-icon" data-page-node-id="2lhCOjrC6FmRCHy5IMPK7o">📍</div>
+                <h3 data-page-node-id="BMss8CsHoXx9noTCaMfz6g">坐标显示</h3>
+                <p data-page-node-id="tfJlByDQZFHor4idzNkoao">实时显示鼠标精确坐标位置，粉色标签清晰标注</p>
+            </div>
+            
+            <div class="feature-card" data-page-node-id="fvADTr2Qv1NGvFoSkbD7nD">
+                <div class="feature-icon" data-page-node-id="hmG7dF5xBk7Ay83odt0E8T">💡</div>
+                <h3 data-page-node-id="5RjWYQdVX8D8ekraAvb8vE">聚光灯效果</h3>
+                <p data-page-node-id="IPrzxTU61CjZDnFD3vLl5V">高亮显示鼠标周围区域，紫色光束聚焦，便于精确定位</p>
+            </div>
+            
+            <div class="feature-card" data-page-node-id="uEewFaRkwvqgAjltxjOrGb">
+                <div class="feature-icon" data-page-node-id="vnOZ9gkdPDfZzIOX4VE777">🔍</div>
+                <h3 data-page-node-id="j1eu2QCwEoHGiQjLvfUEry">放大镜效果</h3>
+                <p data-page-node-id="YhXpjzoBAHDMUVcTRj41en">放大鼠标周围区域，绿色放大镜辅助精确操作</p>
+            </div>
+        </section>
+        
+        <!-- 快捷键 -->
+        <section class="shortcuts" data-page-node-id="DV0bWcG8GwOXCN846GDYmY">
+            <h2 data-page-node-id="6nHF3638ivEcimTrb7HLal">⌨️ 快捷键</h2>
+            <div class="shortcut-grid" data-page-node-id="pSGkfQlVG980Ti0tGYd5WV">
+                <div class="shortcut-item" data-page-node-id="n3PzZbenHd2DJJcmve6KO3">
+                    <span class="shortcut-key" data-page-node-id="vtXSXT8x0q5gecqWhEXMrH">Ctrl+Shift+1</span>
+                    <span class="shortcut-desc" data-page-node-id="PWhrp5St5r9xLSysDeQYv8">切换鼠标高亮</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="skNPhGkTQK5I3XigyavTuH">
+                    <span class="shortcut-key" data-page-node-id="44TzIwa07nb8ffArJeNaDH">Ctrl+Shift+2</span>
+                    <span class="shortcut-desc" data-page-node-id="DMMuuYKMeaYawHOGqUVeND">切换点击效果</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+3</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">切换键盘显示</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+4</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">鼠标坐标显示</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+5</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">聚光灯效果</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+6</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">放大镜效果</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+`</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">浮动工具栏</span>
+                </div>
+                <div class="shortcut-item" data-page-node-id="uO1cgARAUantFU5T0r7jeM">
+                    <span class="shortcut-key" data-page-node-id="60P1WJBZCwaP3Bo0JloqCH">Ctrl+Shift+F1</span>
+                    <span class="shortcut-desc" data-page-node-id="rVLA7JvXx6de9cpsqVrRpS">打开设置</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 下载区域 -->
+        <section class="download-section" data-page-node-id="MfQVBfeLOyMVr9c8gFb2Ca">
+            <h2 data-page-node-id="OLM4yhXEBzDrIhgWM3CCFy">📥 立即下载</h2>
+            <p data-page-node-id="sIqiPmBu5F3xS4tfHnItED">选择最适合你的版本，即刻体验键鼠可视化</p>
+            
+            <div class="download-buttons" data-page-node-id="gojxmJ1055jFr4IMPEWvgT">
+                <a href="https://github.com/SoftHubCC/KeyMouseViz/releases/download/v1.0.0/KeyMouseViz_installer_v1.0.exe" class="btn btn-primary" data-page-node-id="eEvK2MVgGquXaoUBewEmia">
+                    ⬇️ 安装程序 (34 MB)
+                </a>
+                <a href="https://github.com/SoftHubCC/KeyMouseViz/releases/download/v1.0.0/KeyMouseViz_portable_v1.0.0.zip" class="btn btn-secondary" data-page-node-id="nn7ruFP0FeUuNJNHQamqqK">
+                    📦 便携版 (27 MB)
+                </a>
+            </div>
+            
+            <div class="file-info" data-page-node-id="uZVajZOT16q3w7CFGV5OD7">
+                <div class="file-item" data-page-node-id="1rdY6ONVkQHZuSThL4QEUA">
+                    <div class="size" data-page-node-id="eoFWgKeE4CFfh3Rx2oABlZ">34 MB</div>
+                    <div class="name" data-page-node-id="Eg8ZCISQFfMGnVis4Zd8Ym">安装程序</div>
+                </div>
+                <div class="file-item" data-page-node-id="BdqOiB96ZiFWooXaH5Lc7r">
+                    <div class="size" data-page-node-id="9y1KkK8LYtOpvTKDy7xMvc">27 MB</div>
+                    <div class="name" data-page-node-id="9L9A5ZsDdw5RvftM48RPLx">便携版</div>
+                </div>
+                <div class="file-item" data-page-node-id="Tzq9Jh2OfUaI6EI1x62let">
+                    <div class="size" data-page-node-id="vf77PqQLcg9CwsLWDs19Sc">4 MB</div>
+                    <div class="name" data-page-node-id="CFc0X4ehHyvzo1EaXOMQZx">仅主程序</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 页脚 -->
+        <footer data-page-node-id="YJ3WLhY5CHeDNsGb2URyMe">
+            <p data-page-node-id="1VedA3Oa6i7C5z3ZdGUgoq">由 <a href="https://github.com/SoftHubCC" target="_blank" data-page-node-id="4PBdII26QCd6bLfoVxdmGH">SoftHubCC</a> 开发</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;" data-page-node-id="VVaonQXR4o5wMPGmqP1Nmi">基于 PyQt5 构建 | MIT 许可证</p>
+        </footer>
+    </div>
+</body>
+</html>
