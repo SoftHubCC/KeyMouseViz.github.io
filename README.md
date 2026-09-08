@@ -4,12 +4,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue)](https://www.microsoft.com/windows)
-[![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://www.python.org/)
-[![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-green.svg)](https://riverbankcomputing.com/software/pyqt/)
 
 ## 📥 下载
 
-前往 [Releases](https://github.com/SoftHubCC/KeyMouseViz/releases) 页面下载最新版本：
+前往 [Releases](https://github.com/SoftHubCC/KeyMouseViz.github.io/releases) 页面下载最新版本：
 
 | 文件 | 大小 | 说明 |
 |------|------|------|
@@ -52,6 +50,8 @@
 - **浮动工具栏颜色自定义** - 每个功能可独立设置启用状态颜色
 - **配置文件** - 通过 `config/config.json` 调整各项参数
 
+
+
 ## 🚀 快速开始
 
 ### 方式一：便携版（推荐）
@@ -68,63 +68,13 @@
 
 ```
 KeyMouseViz/
-├── KeyMouseViz.py          # 主程序源码
-├── KeyMouseViz.spec        # PyInstaller 打包配置
-├── app_build.bat           # 打包脚本
-├── app_run.bat             # 程序启动脚本
-├── _build_msg.py           # 打包提示信息管理
-├── _postbuild_fix.py       # 打包后处理脚本
-├── config/
-│   ├── app.ico             # 程序图标
-│   ├── app.png             # 程序图标
-│   ├── config.json         # 配置文件
-│   └── floatbar/           # 浮动工具栏图标
-│       ├── target.svg      # 鼠标高亮
-│       ├── click.svg       # 点击效果
-│       ├── keyboard.svg    # 键盘显示
-│       ├── crosshair.svg   # 鼠标坐标
-│       ├── sun-electricity.svg  # 聚光灯
-│       └── list-search.svg     # 放大镜
-└── dist/
-    └── KeyMouseViz/        # 打包输出目录
-        ├── KeyMouseViz.exe
-        ├── config/
-        └── _internal/
+├── KeyMouseViz.exe          # 主程序
+├── config/                  # 配置文件
+└── _internal/               # 依赖库
+
 ```
 
-## 🛠️ 本地构建
 
-### 环境要求
-- Python 3.13+
-- Windows 10/11
-
-### 构建步骤
-```bash
-# 1. 创建虚拟环境
-python -m venv venv
-venv\Scripts\activate
-
-# 2. 安装依赖
-pip install -r requirements.txt
-pip install pyinstaller
-
-# 3. 运行打包脚本
-.\app_build.bat
-```
-
-打包完成后，输出目录为 `dist/KeyMouseViz/`
-
-## 📝 技术栈
-
-- **GUI 框架**: PyQt5
-- **键鼠控制**: pyautogui, pynput
-- **系统交互**: pywin32
-- **打包工具**: PyInstaller
-- **UI 设计**: 自定义无边框窗口 + SVG 图标
-
-## 📄 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 👥 作者
 
@@ -132,12 +82,7 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 - GitHub: [SoftHubCC](https://github.com/SoftHubCC)
 - 网站: [softhub.cc](https://softhub.cc)
 
-## 🙏 致谢
 
-- [PyQt5](https://www.riverbankcomputing.com/software/pyqt/) - 跨平台 GUI 框架
-- [pyautogui](https://pyautogui.readthedocs.io/) - 键鼠自动化库
-- [pynput](https://github.com/moses-palmer/pynput) - 键鼠监听库
-- [pywin32](https://pypi.org/project/pywin32/) - Windows API 封装
 
 ## 📊 更新日志
 
