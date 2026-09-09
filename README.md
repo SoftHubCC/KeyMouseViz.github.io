@@ -54,15 +54,19 @@
 
 ## 🚀 快速开始
 
-### 方式一：便携版（推荐）
+### 方式一：安装程序（推荐）
+
+1. 下载 `KeyMouseViz_installer_v1.0.0.exe`
+2. 运行安装程序，按提示完成安装
+3. 从开始菜单或桌面快捷方式启动
+
+### 方式二：便携版
+
 1. 下载 `KeyMouseViz_portable_v1.0.0.zip`
 2. 解压到任意目录
 3. 双击运行 `KeyMouseViz\KeyMouseViz.exe`
 
-### 方式二：安装程序
-1. 下载 `KeyMouseViz_installer_v1.0.0.exe`
-2. 运行安装程序，按提示完成安装
-3. 从开始菜单或桌面快捷方式启动
+3. 
 
 ## 📂 项目结构
 
