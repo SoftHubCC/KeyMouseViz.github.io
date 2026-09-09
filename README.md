@@ -11,7 +11,7 @@
 
 | 文件 | 大小 | 说明 |
 |------|------|------|
-| `KeyMouseViz_installer_v1.0.0.exe` | 22 MB | 安装程序（一键安装，推荐） |
+| `KeyMouseViz_installer_v1.0.0.exe` | 22 MB | 安装程序（一键安装） |
 | `KeyMouseViz_portable_v1.0.0.zip` | 28 MB | 便携版（解压即用） |
 
 ## ✨ 功能特性
@@ -54,7 +54,7 @@
 
 ## 🚀 快速开始
 
-### 方式一：安装程序（推荐）
+### 方式一：安装程序
 
 1. 下载 `KeyMouseViz_installer_v1.0.0.exe`
 2. 运行安装程序，按提示完成安装
@@ -66,7 +66,7 @@
 2. 解压到任意目录
 3. 双击运行 `KeyMouseViz\KeyMouseViz.exe`
 
-3. 
+
 
 ## 📂 项目结构
 
